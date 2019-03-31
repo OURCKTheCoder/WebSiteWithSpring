@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+	
+	<meta content="text/html" charset="utf8">
+	<title>CHD</title>
+	<style>
+		h1 {
+			margin: 20px;
+		}
+	
+		h3 {
+			margin: 20px;
+			color: #66ccff;
+		}
+		
+		td {
+			border: none;
+		}
+		
+		img:hover {
+			transform: scale(1.5);
+		}
+		
+		.pBlock {
+			background:url("pics/bg.jpg") no-repeat;
+			background-size: 100%;
+			float: left;
+			margin: 10px;
+			padding: 15px;
+			width: 653px;
+			height: 300px;
+			border: 1px solid #0088cc;
+		}
+		.pBlock p {
+			color: #e6e6e6;
+		}
+	
+		.tBlock {
+			float: left;
+			margin: 10px;
+			padding: 15px;
+			width: 1005px;
+			height: 300px;
+			border: 1px solid #0088cc;
+		}
+		.tBlock td {
+			border: 1px solid #66ccff;
+		}
+	
+		.bigBlock {
+			float: left;
+			margin: 10px;
+			padding: 15px;
+			width: 300px;
+			height: 300px;
+			border: 1px solid #0088cc;
+		}
+		
+		.bigBlockNoBorder {
+			float: left;
+			width: 350px;
+			height: 350px;
+			border: 1px solid white;
+		}
+		
+		.smallBlock {
+			float: left;
+			display: flex;
+			align-items: center;
+			margin: 10px;
+			width: 153px;
+			height: 153px;
+			border: 1px solid #0088cc;
+		}
+		.smallBlock img {
+			transition: all 0.3s; 
+			width: 100%;
+		}
+		
+		.picBlock {
+			float: left;
+			display: flex;
+			align-items: center;  
+			margin: 10px;
+			padding: 15px;
+			width: 300px;
+			height: 300px;
+			border: 1px solid #0088cc;
+		}
+		.picBlock img {
+			transition: all 0.3s; 
+			width: 100%;
+		}
+	</style>
+</head>
+
+<body>
+
+	<h1>长安大学</h1>
+	<table style="{border: none}">
+		<tr>
+			<td><h3>陕西 | 西安</h3></td>
+			<td th:text="${arg}"></td>
+		</tr>
+	</table>
+	<br>
+
+	<div class="bigBlock">
+		<h2>概况</h2>
+		<p>
+		<a href="http://www.chd.edu.cn/" target="_blank">长安大学（Chang’an University）</a>座落于古都西安，直属中华人民共和国教育部，
+		是教育部和交通运输部、国土资源部、住房和城乡建设部、陕西省人民政府共建的
+		国家“211工程”重点建设大学，国家“985工程优势学科创新平台”建设高校。
+		</p>
+	</div>
+
+	<div class="bigBlockNoBorder">
+		<div class="smallBlock"><img src="../pics/0.jpg"></div>
+		<div class="smallBlock"><img src="pics/1.jpg"></div>
+		<div class="smallBlock"><img src="pics/2.png"></div>
+		<div class="smallBlock"><img src="pics/3.jpg"></div>
+	</div>
+	
+	<div class="bigBlock">
+		<p>
+		&nbsp; &nbsp; 据2019年2月学校官网显示，学校有校本部和渭水2个校区、太白山和梁山2个教学实习基地，
+		校园面积3745亩。下设21个教学院（系）、77个本科专业；8个博士后科研流动站，
+		9个一级学科博士点，34个一级学科硕士点，10个硕士专业学位授权类别，16个工程硕士授权领域；<br>
+		&nbsp; &nbsp; 专任教师2027人，其中，中国工程院院士3人，长江学者6人；全日制学生33000余人，其中
+		博士研究生、硕士研究生、外国留学生9000余人。
+		</p>
+	</div>
+	
+	<div class="picBlock">
+		<img src="pics/chd.jpg"/>
+	</div>
+
+	<div class="pBlock">
+		<p>
+		&nbsp; &nbsp; “十一五”期间，科技创新能力快速增强，承担了包括国家“973”计划、“863”计划、国家科技支撑计划、教育部与国土资源部共建长安大学签字仪式。 
+		国家自然科学基金重点和面上项目、国家社会科学基金项目、西部交通建设科技项目、国土资源调查项目在内的科研项目3800余项，七年总额突破29亿元。
+		获得国家专利370项，发表学术论文9900余篇，SCI、EI、ISTP收录论文2700余篇。2006年以来荣获省部级以上科技奖励151项，
+		其中荣获包括国家科技进步一等奖在内的国家科技奖励14项。<br>
+		&nbsp; &nbsp; 2019年1月8日，2018年度国家科学技术奖励大会在北京人民大会堂召开，长安大学两项成果获奖，
+		其中，谢永利教授团队主要完成的“复合地基理论、关键技术及工程应用”项目获得国家科技进步一等奖；
+		张勤教授团队参与完成的“InSAR毫米级地表形变监测的关键技术及应用”项目获得国家科技进步二等奖。
+		</p>
+	</div>
+	
+	<div class="bigBlockNoBorder">
+		<div class="smallBlock"><img src="pics/animals/0.jpg"></div>
+		<div class="smallBlock"><img src="pics/animals/1.jpg"></div>
+		<div class="smallBlock"><img src="pics/animals/2.jpg"></div>
+		<div class="smallBlock"><img src="pics/animals/3.jpeg"></div>
+	</div>
+		
+	<div class="picBlock">
+		<img src="pics/chd2.jpg"/>
+	</div>
+	
+	<div class="tBlock">
+		<h2>重点学科信息</h2>
+		<table>
+			<tr>
+				<td align="center" valign="middle" rowspan="6"><b>省部重点学科</b></td>
+				<td valign="top">交通运输工程</td>
+				<td valign="top">车辆工程</td>
+				<td valign="top">矿产普查与勘探</td>
+				<td valign="top">矿物学</td>
+				<td valign="top">岩石学</td>
+			</tr>
+			
+			<tr>
+				<td valign="top">矿床学</td>
+				<td valign="top">岩土工程</td>
+				<td valign="top">地球探测与信息技术</td>
+				<td valign="top">地球化学</td>
+				<td valign="top">结构工程</td>
+			</tr>
+			
+			<tr>
+				<td valign="top">地质工程</td>
+				<td valign="top">古生物学与地质学</td>
+				<td valign="top">市政工程</td>
+				<td valign="top">道路与铁道工程</td>
+				<td valign="top">构造地质学</td>
+			</tr>
+			
+			<tr>
+				<td valign="top">供热、供燃气、通风及空调工程</td>
+				<td valign="top">交通信息工程及控制</td>
+				<td align="left" valign="top">第四纪地质学</td>
+				<td valign="top">防灾减灾工程及防护工程</td>
+				<td valign="top">交通运输规划与管理</td>
+			</tr>
+			
+			<tr>
+				<td valign="top">机械制造及其自动化</td>
+				<td valign="top">桥梁与隧道工程</td>
+				<td valign="top">载运工具运用工程</td>
+				<td valign="top">机械电子工程</td>
+				<td valign="top">水文学及水资源</td>
+			</tr>
+			
+			<tr>
+				<td valign="top" rowspan="1" colspan="1">环境工程</td>
+				<td valign="top" rowspan="1" colspan="1">机械设计及理论</td>
+				<td valign="top" rowspan="1" colspan="1">大地测量学与测量工程</td>
+				<td valign="top" rowspan="1" colspan="1"></td>
+				<td valign="top" rowspan="1" colspan="1"></td>
+			</tr>
+		</table>
+	</div>
+	
+</body>
+</html>
