@@ -4,6 +4,13 @@ import java.util.Date;
 
 public class News {
 
+	@Override
+	public String toString() {
+		return "News [id=" + id + ", userId=" + userId + ", createdDate=" + createdDate + ", commentCount="
+				+ commentCount + ", image=" + image + ", link=" + link + ", title=" + title + ", likeCount=" + likeCount
+				+ "]";
+	}
+
 	private int id;
 	private int userId;
 	private Date createdDate;

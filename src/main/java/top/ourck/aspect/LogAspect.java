@@ -14,14 +14,14 @@ public class LogAspect {
 
 	private static final Logger logger = LoggerFactory.getLogger(LogAspect.class);
 	
-	@Before("execution(* top.ourck.web.IndexController.*(..))")
+	@Before("execution(* top.ourck.web.*.*(..))")
 	public void beforeMethod(JoinPoint p) {
 		StringBuilder stb = new StringBuilder();
 		for(Object obj : p.getArgs()) stb.append(obj);
 		logger.info(p.toShortString() + " entered.");
 	}
 
-	@After("execution(* top.ourck.web.IndexController.*(..))")
+	@After("execution(* top.ourck.web.*.*(..))")
 	public void afterMethod(JoinPoint p) {
 		logger.info(p.toShortString() + " exited.");
 	}

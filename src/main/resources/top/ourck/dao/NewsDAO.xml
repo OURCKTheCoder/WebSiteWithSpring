@@ -11,8 +11,8 @@
 		FROM
 		<include refid="TABLE_NAME"/>
 		
-		<if test="userId != 0">
-			WHERE user_id = #{userId}												<!-- 4. if tag -->		
+		<if test="id != 0">
+			WHERE user_id = #{id}												<!-- 4. if tag -->		
 		</if>
 		
 		ORDER BY id DESC

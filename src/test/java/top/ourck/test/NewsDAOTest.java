@@ -1,6 +1,7 @@
 package top.ourck.test;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import org.junit.Test;
@@ -19,7 +20,7 @@ public class NewsDAOTest {
 	@Autowired
 	private NewsDAO newsDAO;
 	
-	@Test
+//	@Test
 	public void insertTest() {
 		Random r = new Random(System.currentTimeMillis());
 		for(int i = 0; i < 11; i++ ) {
@@ -37,6 +38,12 @@ public class NewsDAOTest {
 	        newsDAO.addNews(news);
 	        System.out.println(news.getId());
 		}
+	}
+	
+	@Test
+	public void getNewsTest() {
+		List<News> nList = newsDAO.selectByUserIdAndOffset(1, 0, 10);
+		for(News news : nList) System.out.println(news);
 	}
 	
 }
