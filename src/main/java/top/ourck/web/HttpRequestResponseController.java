@@ -19,16 +19,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import top.ourck.service.IndexService;
 
 @Controller
-@RequestMapping("/index")
-public class IndexController {
+@RequestMapping("/rrtest")
+public class HttpRequestResponseController {
 
 	@Autowired
 	private IndexService indexService;
-	
-	@RequestMapping("/")
-	public String index() {
-		return "redirect:/chd";
-	}
 	
 	@RequestMapping("/{userName}")
 	@ResponseBody
@@ -80,7 +75,7 @@ public class IndexController {
 			stb.append(request.getHeader(name));
 			stb.append("\n");
 		}
-	
+
 		if(cookieVal != null) {
 			stb.append("\n----------------------\n");
 			stb.append("It seems you have a \"status\" cookie: ");

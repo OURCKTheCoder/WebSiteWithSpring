@@ -15,18 +15,18 @@ import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequestMapping("/redirect")
-public class RedirectController {
+public class RedirectController { // TODO 以隔壁rrtest的控制器做的实验，得改！
 
 	@RequestMapping("/byCmd")
 	public String redirect() {
-		return "redirect:/index/Default?request=302TemporaryRedirect";
+		return "redirect:/rrtest/DefaultUser?request=302TemporaryRedirect";
 	}
 	
 	@RequestMapping("/byResponse")
 	public void redirectByresponse(HttpServletRequest request,
 								   HttpServletResponse response) {
 		try {
-			response.sendRedirect("/index/Default?request=302TemporaryRedirect");
+			response.sendRedirect("/rrtest/Default?request=302TemporaryRedirect");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -38,11 +38,11 @@ public class RedirectController {
 		switch(code) {
 			case 301:	
 				rv.setStatusCode(HttpStatus.MOVED_PERMANENTLY);
-				rv.setUrl("/index/Default?request=301MOVED_PERMANENTLY");
+				rv.setUrl("/rrtest/Default?request=301MOVED_PERMANENTLY");
 				break;
 			case 302:
 				rv.setStatusCode(HttpStatus.FOUND);
-				rv.setUrl("/index/Default?request=302FOUND");
+				rv.setUrl("/rrtest/Default?request=302FOUND");
 				break;
 			default:
 				throw new Exception("Invalid HTTP redirection code!");

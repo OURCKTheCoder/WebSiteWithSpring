@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class NowCoderApp {
+public class WebSiteApp {
 
 	public static void main(String[] args) {
-		SpringApplication.run(NowCoderApp.class, args);
+		SpringApplication.run(WebSiteApp.class, args);
 	}
 }

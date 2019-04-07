@@ -4,20 +4,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class ThymeleafTemplateController {
+public class HomeController {
 
-	@RequestMapping("chd")
-	public String hello(Model model) {
+	@RequestMapping("/home")
+	public ModelAndView hello(Model model) {
 		model.addAttribute("arg", "this is an arg from controller!");
-		return "index";
+		return new ModelAndView("index");
 	}
 	
-	@RequestMapping("chdWithArg")
-	public String helloWithArg(Model model, @RequestParam("arg") String arg) {
+	@RequestMapping("/homeWithArg")
+	public ModelAndView helloWithArg(Model model, @RequestParam("arg") String arg) {
 		model.addAttribute("arg", arg);
-		return "index";
+		return new ModelAndView("index");
 	}
 	
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.ourck.dao.NewsDAO">
+
+	<sql id="TABLE_NAME">news</sql>													<!-- 1. SQL tag -->
+	<sql id="SELECT_FIELDS"> id, user_id, created_date, comment_count, like_count, image, link, title </sql>
+
+	<select id="selectByUserIdAndOffset" resultType="top.ourck.beans.News"> 		<!-- 2. SELECT tag: id, resultType -->
+		SELECT
+		<include refid="SELECT_FIELDS"/>											<!-- 3. Use "include" tag to quote -->
+		FROM
+		<include refid="TABLE_NAME"/>
+		
+		<if test="userId != 0">
+			WHERE user_id = #{userId}												<!-- 4. if tag -->		
+		</if>
+		
+		ORDER BY id DESC
+		LIMIT #{offset}, #{limit}													<!-- 5. Parameters received here -->
+	</select>
+
+</mapper>
