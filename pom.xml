@@ -8,7 +8,7 @@
 	    <maven.compiler.source>1.10</maven.compiler.source>  
 	    <maven.compiler.target>1.10</maven.compiler.target>  
 	    <maven.compiler.compilerVersion>1.10</maven.compiler.compilerVersion>  
-	    <java.version>1.8</java.version>
+	    <java.version>1.10</java.version>
 	    <spring.version>4.2.4.RELEASE</spring.version>
 	</properties>
   
