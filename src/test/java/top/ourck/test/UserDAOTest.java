@@ -25,7 +25,7 @@ public class UserDAOTest {
 	    for (int i = 0; i < 11; ++i) {
 	        User user = new User();
 	        user.setName(String.format("USER%d", i));
-			user.setImage(String.format("http://images.nowcoder.com/head/%dt.png", r.nextInt(1000)));
+	        user.setImage(String.format("http://images.nowcoder.com/head/%dt.png", r.nextInt(1000)));
 			user.setPassword("");
 			
 			user.setSalt("");

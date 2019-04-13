@@ -1,4 +1,4 @@
-package top.ourck.web;
+package top.ourck.web.sample;
 
 import java.util.Enumeration;
 

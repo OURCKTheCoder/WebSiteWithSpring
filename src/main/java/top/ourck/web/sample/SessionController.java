@@ -1,4 +1,4 @@
-package top.ourck.web;
+package top.ourck.web.sample;
 
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
