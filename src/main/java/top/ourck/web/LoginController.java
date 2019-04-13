@@ -31,7 +31,7 @@ public class LoginController {
 	
 	@RequestMapping("/reg")
 	@ResponseBody
-	public String register(@RequestParam("userName") String userName,
+	public String register(@RequestParam("username") String userName,
 						   @RequestParam("password") String passwd, 
 						   @RequestParam(value="rember", defaultValue="0") int rememberMe) throws UnsupportedEncodingException {
 		
@@ -41,7 +41,7 @@ public class LoginController {
 	
 	@RequestMapping("/auth")
 	@ResponseBody
-	public String auth(@RequestParam("userName") String userName,
+	public String auth(@RequestParam("username") String userName,
 					   @RequestParam("password") String passwd, 
 					   @RequestParam(value="rember", defaultValue="0") int rememberMe,
 					   HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
@@ -61,6 +61,6 @@ public class LoginController {
 	@ResponseBody
 	public String error(HttpServletRequest req, HttpServletResponse rep, Exception e) {
 		logger.error("[!] Error: " + e.getMessage());
-		return JSONUtil.getJSONString(1, "Server 500!");
+		return JSONUtil.getJSONString(1, "Server side error!");
 	}
 }

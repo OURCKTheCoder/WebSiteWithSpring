@@ -41,9 +41,14 @@ public class UserService {
 		Map<String, String> info = new HashMap<>();
 		
 		// 1. 输入不为空校验
-		if(StringUtils.isBlank(userName) || StringUtils.isBlank(passwd)) {
+		if(StringUtils.isBlank(userName)) {
 			info.put("success", "false");
-			info.put("error", "用户名 / 密码不能为空！");
+			info.put("msgname", "用户名不能为空");
+			return info;
+		}
+		if(StringUtils.isBlank(passwd)) {
+			info.put("success", "false");
+			info.put("msgpwd", "密码不能为空");
 			return info;
 		}
 		
@@ -52,7 +57,7 @@ public class UserService {
 		u = userDAO.selectByName(userName);
 		if(u != null) {
 			info.put("success", "false");
-			info.put("error", "用户名已存在！");
+			info.put("msgname", "用户名已经被注册");
 			return info;
 		}
 		else {
@@ -64,9 +69,9 @@ public class UserService {
 				String salt = UUID.randomUUID().toString().substring(0, 5);
 				u.setSalt(salt);
 				u.setPassword(DigestUtils.md5DigestAsHex((passwd + salt).getBytes("iso-8859-1")));
-
 				userDAO.addUser(u);
 				
+				// TODO 登陆！
 				info.put("success", "true");
 				return info;
 		}
@@ -74,11 +79,22 @@ public class UserService {
 	
 	public Map<String, String> getAuth(String userName, String passwd) throws UnsupportedEncodingException {
 		Map<String, String> info = new HashMap<>();
-		User u = userDAO.selectByName(userName);
 		
+		if(StringUtils.isBlank(userName)) {
+			info.put("success", "false");
+			info.put("msgname", "用户名不能为空");
+			return info;
+		}
+		if(StringUtils.isBlank(passwd)) {
+			info.put("success", "false");
+			info.put("msgpwd", "密码不能为空");
+			return info;
+		}
+		
+		User u = userDAO.selectByName(userName);
 		if(u == null) {
 			info.put("success", "false");
-			info.put("error", "用户名不存在！");
+			info.put("msgname", "用户名不存在");
 			return info;
 		}
 		else {
@@ -93,7 +109,7 @@ public class UserService {
 			}
 			else {
 				info.put("success", "false");
-				info.put("error", "密码错误！");
+				info.put("msgpwd", "密码不正确");
 			}
 			return info;
 		}
@@ -104,7 +120,7 @@ public class UserService {
 		t.setUserId(userId);
 		t.setStatus(0);
 		Date d = new Date();
-		d.setTime(d.getTime() + 60 * 1000); // 1-min man.
+		d.setTime(d.getTime() + 10 * 60 * 1000); // 10-min man.
 		t.setExpired(d);
 		t.setTicket(UUID.randomUUID().toString().replaceAll("-", ""));
 		loginTicketDAO.addTicket(t);
