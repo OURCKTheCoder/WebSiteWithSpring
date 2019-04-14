@@ -18,7 +18,7 @@
 前端部分：
 
 - [ ] JS
-- [ ] BootStrap：花里胡哨的样式
+- [ ] Bootstrap：花里胡哨的样式
 - [x] Thymeleaf：主页的展示 & 数据传递
 
 后端部分：
