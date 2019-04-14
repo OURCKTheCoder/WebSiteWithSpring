@@ -29,7 +29,7 @@ public class UserService {
 	public User getUser(int id) {
 		return userDAO.selectById(id);
 	}
-	
+
 	/**
 	 * TODO 特殊字符验证？
 	 * @param userName 用户名
@@ -76,7 +76,7 @@ public class UserService {
 				return info;
 		}
 	}
-	
+
 	public Map<String, String> getAuth(String userName, String passwd) throws UnsupportedEncodingException {
 		Map<String, String> info = new HashMap<>();
 		
@@ -113,6 +113,10 @@ public class UserService {
 			}
 			return info;
 		}
+	}
+
+	public void logout(String ticket) {
+		loginTicketDAO.updateStatus(1, ticket);
 	}
 	
 	private String genTicket(int userId) {

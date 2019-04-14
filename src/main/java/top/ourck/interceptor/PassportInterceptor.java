@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import top.ourck.beans.LoginTicket;
-import top.ourck.beans.ThreadLocalUserHolder;
+import top.ourck.beans.UserHolder;
 import top.ourck.beans.User;
 import top.ourck.service.LoginTicketService;
 import top.ourck.service.UserService;
@@ -43,7 +43,7 @@ public class PassportInterceptor extends HandlerInterceptorAdapter {
 	 * </ul>
 	 */
 	@Autowired
-	private ThreadLocalUserHolder userHolder;
+	private UserHolder userHolder;
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request,
@@ -85,24 +85,15 @@ public class PassportInterceptor extends HandlerInterceptorAdapter {
 						   Object handler,
 						   ModelAndView modelAndView) throws Exception {
 		User user = userHolder.getUser();
-		if(user != null) {
+		if(modelAndView != null && user != null) {
 			modelAndView.addObject("verifiedUser", user);
 		}
-		super.postHandle(request, response, handler, modelAndView);
 	}
 
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
 		userHolder.clear();
-		super.afterCompletion(request, response, handler, ex);
 	}
 
-	@Override
-	public void afterConcurrentHandlingStarted(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
-		super.afterConcurrentHandlingStarted(request, response, handler);
-	}
-
-	
 }

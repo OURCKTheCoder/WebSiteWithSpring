@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
  * @author ourck
  */
 @Component
-public class ThreadLocalUserHolder {
+public class UserHolder {
 
 	private static ThreadLocal<User> userTl = new ThreadLocal<>();
 	

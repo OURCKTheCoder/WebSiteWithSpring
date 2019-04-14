@@ -4,20 +4,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>令曰头条</title>
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <meta name="keywords" content="令曰头条 - 你关心的不会成为头条">
-    <meta name="description" content="令曰头条 - 你关心的不会成为头条">
+    <meta name="keywords" content="令曰头条 - 你关心的绝不会成为头条">
+    <meta name="description" content="令曰头条 - 你关心的绝不会成为头条">
 
     <link rel="stylesheet" type="text/css" href="/styles/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/styles/font-awesome.min.css">
 
     <link rel="stylesheet" media="all" href="/styles/style.css">
-
-    <script src="/scripts/hm.js"></script>
-    <script src="/scripts/detail.js"></script>
-
-    <script type="text/javascript" src="/scripts/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/scripts/jquery.qrcode.min.js"></script>
-    
 </head>
 <body class="welcome_index">
 
@@ -32,7 +25,7 @@
                 </button>
 
                 <a href="http://nowcoder.com/" class="navbar-brand logo">
-                  <h1>头条资讯</h1>
+                  <h1>令曰头条</h1>
                   <h3>你关心的绝不会成为头条</h3>
                 </a>
             </div>
@@ -44,7 +37,7 @@
 
                     <li><a href="http://nowcoder.com/signin">站内信</a></li>
                     <li th:if="${verifiedUser} == null" class="js-login"><a href="javascript:void(0);">登陆</a></li>
-                    <li th:if="${verifiedUser} != null" class="js-login"><a th:text="${verifiedUser.name}"></a></li>
+                    <li th:if="${verifiedUser} != null" class=""><a href="/login/logout" th:text="${verifiedUser.name}"></a></li>
                 </ul>
 
             </nav>
@@ -169,7 +162,7 @@
     </div>
   </div>
 
-	<script>window.loginpop = $!{pop};</script>
+	<script th:text="|window.loginpop = ${pop};|"></script>
 	<script type="text/javascript" src="/scripts/jquery.js"></script>
 	<script type="text/javascript" src="/scripts/main/base/base.js"></script>
 	<script type="text/javascript" src="/scripts/main/base/util.js"></script>
