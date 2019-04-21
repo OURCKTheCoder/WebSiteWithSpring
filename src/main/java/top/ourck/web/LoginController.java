@@ -35,7 +35,7 @@ public class LoginController {
 	public String register(@RequestParam("username") String userName,
 						   @RequestParam("password") String passwd, 
 						   @RequestParam(value="rember", defaultValue="0") int rememberMe) throws UnsupportedEncodingException {
-		Map<String, String> info = userService.register(userName, passwd);
+		Map<String, Object> info = userService.register(userName, passwd);
 		return JSONUtil.getJSONString(0, info);
 	}
 	
@@ -45,9 +45,9 @@ public class LoginController {
 					   @RequestParam("password") String passwd, 
 					   @RequestParam(value="rember", defaultValue="0") int rememberMe,
 					   HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
-		Map<String, String> info = userService.getAuth(userName, passwd);
+		Map<String, Object> info = userService.getAuth(userName, passwd);
 		if(info.get("success").equals("true")) { // If login success, give him a cookie.
-			Cookie ck = new Cookie("ticket", info.get("ticket"));
+			Cookie ck = new Cookie("ticket", info.get("ticket").toString());
 			ck.setPath("/");
 			if(rememberMe > 0)
 				ck.setMaxAge(1000 * 60 * 60 * 24); // 1-day man

@@ -37,8 +37,8 @@ public class UserService {
 	 * @return 信息
 	 * @throws UnsupportedEncodingException 
 	 */
-	public Map<String, String> register(String userName, String passwd) throws UnsupportedEncodingException {
-		Map<String, String> info = new HashMap<>();
+	public Map<String, Object> register(String userName, String passwd) throws UnsupportedEncodingException {
+		Map<String, Object> info = new HashMap<>();
 		
 		// 1. 输入不为空校验
 		if(StringUtils.isBlank(userName)) {
@@ -77,8 +77,8 @@ public class UserService {
 		}
 	}
 
-	public Map<String, String> getAuth(String userName, String passwd) throws UnsupportedEncodingException {
-		Map<String, String> info = new HashMap<>();
+	public Map<String, Object> getAuth(String userName, String passwd) throws UnsupportedEncodingException {
+		Map<String, Object> info = new HashMap<>();
 		
 		if(StringUtils.isBlank(userName)) {
 			info.put("success", "false");
