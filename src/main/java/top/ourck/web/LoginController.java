@@ -36,7 +36,11 @@ public class LoginController {
 						   @RequestParam("password") String passwd, 
 						   @RequestParam(value="rember", defaultValue="0") int rememberMe) throws UnsupportedEncodingException {
 		Map<String, Object> info = userService.register(userName, passwd);
-		return JSONUtil.getJSONString(0, info);
+		if(info.get("success").toString().equals("true"))
+			return JSONUtil.getJSONString(0, info);
+		else
+			return JSONUtil.getJSONString(1, info);
+			
 	}
 	
 	@RequestMapping("/auth")
@@ -53,7 +57,10 @@ public class LoginController {
 				ck.setMaxAge(1000 * 60 * 60 * 24); // 1-day man
 			response.addCookie(ck);
 		}
-		return JSONUtil.getJSONString(0, info);
+		if(info.get("success").toString().equals("true"))
+			return JSONUtil.getJSONString(0, info);
+		else
+			return JSONUtil.getJSONString(1, info);
 	}
 	
 	@RequestMapping("/logout")

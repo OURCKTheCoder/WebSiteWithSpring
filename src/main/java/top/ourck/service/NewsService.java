@@ -22,6 +22,10 @@ public class NewsService {
 	@Autowired
 	private NewsDAO newsDAO;
 	
+	public News getNewsById(int id) {
+		return newsDAO.selectById(id);
+	}
+	
 	public List<News> getLatestNews(int userId, int offset, int limit) {
 		return newsDAO.selectByUserIdAndOffset(userId, offset, limit);
 	}
@@ -48,6 +52,10 @@ public class NewsService {
 			ex.initCause(e);
 			throw ex;
 		}
+	}
+	
+	public void updateCommentCount(int newsId, int newCommentCount) {
+		
 	}
 	
 	public void addNews(News news) {

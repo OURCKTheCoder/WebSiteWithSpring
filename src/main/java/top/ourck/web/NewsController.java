@@ -3,6 +3,9 @@ package top.ourck.web;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,16 +13,27 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.nowcoder.beans.ViewObject;
+
+import top.ourck.beans.Comment;
+import top.ourck.beans.EntityType;
+import top.ourck.beans.News;
 import top.ourck.beans.User;
 import top.ourck.beans.UserHolder;
+import top.ourck.service.CommentService;
 import top.ourck.service.NewsService;
+import top.ourck.service.UserService;
 import top.ourck.util.ImageUtil;
 import top.ourck.util.JSONUtil;
 
@@ -32,6 +46,12 @@ public class NewsController {
 	
 	@Autowired
 	private NewsService newsService;
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private CommentService commentService;
 	
 	@Autowired
 	private UserHolder userHolder;
@@ -69,6 +89,41 @@ public class NewsController {
 		}
 		newsService.addNews(title, link, image, userId);
 		return JSONUtil.getJSONString(0);
+	}
+	
+	@GetMapping("/show/{newsId}")
+	public String showNews(@PathVariable("newsId") int newsId, Model model) {
+		News news = newsService.getNewsById(newsId);
+		User user = userService.getUser(news.getUserId());
+		List<Comment> cmtList = commentService.getChildComment(newsId, EntityType.News);
+		List<ViewObject> viewObjects = new LinkedList<ViewObject>();
+		for(Comment c : cmtList) {
+			ViewObject vo = new ViewObject();
+			vo.set("user", userService.getUser(c.getUserId()));
+			vo.set("comment", c);
+			viewObjects.add(vo);
+		}
+		model.addAttribute("comments", viewObjects);
+		model.addAttribute("news", news);
+		model.addAttribute("owner", user);
+		model.addAttribute("user", userHolder.getUser());
+		return "detail";
+	}
+	
+	@PostMapping("/addComment")
+	public String addComment(@RequestParam("newsId") int newsId, @RequestParam("content") String content) {
+		Comment comment = new Comment();
+		comment.setCreateDate(new Date());
+		comment.setEntityType(EntityType.NEWS);
+		comment.setContent(content);
+		comment.setEntityId(newsId);
+		comment.setStatus(1);
+		comment.setUserId(userHolder.getUser().getId());
+		commentService.addComment(comment);
+		
+		 // 更新评论数量，以后用异步实现
+		int count = commentService.getCommentCount(comment.getEntityId(), comment.getEntityType());
+		newsService.updateCommentCount(comment.getEntityId(), count);
 	}
 	
 	@ExceptionHandler

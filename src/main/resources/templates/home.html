@@ -3,126 +3,87 @@
 <head th:include="header::head"></head>
 <body class="welcome_index">
 
-    <header th:include="header::headerBar" class="navbar navbar-default navbar-static-top bs-docs-nav" id="top" role="banner"></header>
-    
-    <div id="main">
-        <div class="container" id="daily">
-            <div class="jscroll-inner">
-                <div class="daily">
+	<div th:include="header::headerBar"></div>
+
+	<div id="main">
+		<div class="container" id="daily">
+			<div class="jscroll-inner">
+				<div class="daily">
 
 					<!-- DEBUG-ONLY -->
-<!--                     <div th:each="vo : ${vos}">
+					<!--                     <div th:each="vo : ${vos}">
 						<p th:text="${vo.objs['news'].createdDate}"></p>
                     </div> -->
-                    
+
 					<div class="container" id="daily" th:each="vo : ${vos}">
 						<div class="jscroll-inner" th:object="${vo.objs['news']}">
-							<div class="daily">
-							</div>
-					
+							<div class="daily"></div>
+
 							<h3 class="date">
-								<i class="fa icon-calendar"></i>
-								<span th:text="'News | ' + *{createdDate}"></span>
+								<i class="fa icon-calendar"></i> <span
+									th:text="'News | ' + *{createdDate}"></span>
 							</h3>
-					
+
 							<div class="posts">
 								<div class="post">
 									<div class="votebar">
 										<button class="click-like up" aria-pressed="false" title="赞同">
 											<i class="vote-arrow"></i>
-											<span class="count" th:text="*{likeCount}"></span>
+												<span class="count" th:text="*{likeCount}"></span>
 										</button>
-										
-										<button class="click-dislike down" aria-pressed="true" title="反对">
+
+										<button class="click-dislike down" aria-pressed="true"
+											title="反对">
 											<i class="vote-arrow"></i>
 										</button>
 									</div>
-									
-									<div class="content" data-url="http://nowcoder.com/posts/5l3hjr"> <!-- ??? -->
-									
+
+									<div class="content"
+										data-url="http://nowcoder.com/posts/5l3hjr">
+										<!-- ??? -->
+
 										<div>
 											<img class="content-img" th:attr="src=*{image}" alt="">
 										</div>
-										
+
 										<div class="content-main">
 											<h3 class="title">
-												<a target="_blank" rel="external nofollow" th:attr="href=*{link}" th:text="*{title}"></a>
+												<a target="_blank" rel="external nofollow"
+													th:attr="href=*{link}" th:text="*{title}"></a>
 											</h3>
-											
+
 											<div class="meta">
-												<!-- <span th:text="*{link}"></span> --><!-- 这个链接文字显示出来太长了 不会折叠 不响应式 -->
-												<span>
-													<i class="fa icon-comment"></i>
-													<span th:text="*{commentCount}"></span>
+												<!-- <span th:text="*{link}"></span> -->
+												<!-- 这个链接文字显示出来太长了 不会折叠 不响应式 -->
+												<span> <i class="fa icon-comment"></i> <span
+													th:text="*{commentCount}"></span>
 												</span>
 											</div>
-											
+
 										</div>
 									</div>
-									
+
 									<div class="user-info" th:object="${vo.objs['user']}">
 										<div class="user-avatar">
 											<!-- th:href="@{/webPage/details(orderId=${o.id})}" -->
-											<a th:href="|/user/*{id}|">
-												<img width="32" class="img-circle" th:src="*{image}">
+											<a th:href="|/user/*{id}|"> <img width="32"
+												class="img-circle" th:src="*{image}">
 											</a>
 										</div>
 									</div>
-					
+
 									<div class="subject-name" th:object="${vo.objs['user']}">
-										来自
-										<a th:href="|/user/*{id}|" th:text="*{name}"></a>
+										来自 <a th:href="|/user/*{id}|" th:text="*{name}"></a>
 									</div>
-									
+
 								</div>
 							</div>
 						</div>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
 	</div>
 
-    <footer>
-        <div class="container">
-            <p class="text-center">
-                <a href="http://nowcoder.com/about">关于我们</a>
-                <a href="http://nowcoder.com/download">头条客户端</a>
-            </p>
-            <p class="text-center">© 2019-2019 令曰头条</p>
-        </div>
-
-    </footer>
-
-  <div id="quick-download">
-        <button type="button" class="close-link btn-link" data-toggle="modal" data-target="#quick-download-app-modal"><i class="fa icon-times-circle"></i></button>
-
-    <a class="download-link" href="http://nowcoder.com/download">
-      <h3>令曰头条</h3>
-      <h4>一款不懂你却还是瞎推送的头条</h4>
-      <button type="button" class="btn btn-info btn-sm">下载 APP</button>
-    </a>
-
-    <div class="modal fade" id="quick-download-app-modal" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">提示</div>
-          <div class="modal-body">
-            <div class="checkbox">
-              <label class="i-checks">
-                <input id="already-installed" type="checkbox"><i></i> 我已安装了App，不再显示
-              </label>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-block btn-default" id="close-quick-download-app-modal">关闭</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-	<script th:text="|window.loginpop = ${pop};|"></script>
-</body>
-</html>
+	<div th:include="footer::footerBar"></div>
