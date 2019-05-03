@@ -2,7 +2,6 @@ package top.ourck.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
 import java.util.Date;
 
@@ -30,7 +29,7 @@ public class CommentDAOTest {
 	@Test
 	public void addCommentTest() {
 		if(commentDAO.selectById(1) == null) {
-			Comment c = new Comment(FIXED_ID, "Bravo!", 1, EntityType.News, TARGET_NEWS_ID, OWNER_ID, new Date());
+			Comment c = new Comment(FIXED_ID, "Bravo!", 1, EntityType.NEWS, TARGET_NEWS_ID, OWNER_ID, new Date());
 			commentDAO.addComment(c);
 			Comment result;
 			assertNotNull(result = commentDAO.selectById(FIXED_ID));
@@ -40,7 +39,7 @@ public class CommentDAOTest {
 	
 	@Test
 	public void selectListTest() {
-		assertNotNull(commentDAO.selectByEntity(TARGET_NEWS_ID, EntityType.News));
+		assertNotNull(commentDAO.selectByEntity(TARGET_NEWS_ID, EntityType.NEWS));
 	}
 	
 //	@Test

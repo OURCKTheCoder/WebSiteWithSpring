@@ -24,7 +24,8 @@ public interface NewsDAO {
 			+ "WHERE id = #{id}")
 	News selectById(int id);
 	
-	@Select("SELECT * FROM" + TABLE_NAME + "WHERE id = #{id} LIMITS #{offset}, #{limit}")
+//	@Select("SELECT * FROM" + TABLE_NAME + "WHERE id = #{id} LIMITS #{offset}, #{limit}")
+	// .XML style mapping here
 	List<News> selectByUserIdAndOffset(@Param("id") int id,
 										@Param("offset") int offset,
 										@Param("limit") int limit);

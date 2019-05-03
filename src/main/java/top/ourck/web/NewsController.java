@@ -95,7 +95,7 @@ public class NewsController {
 	public String showNews(@PathVariable("newsId") int newsId, Model model) {
 		News news = newsService.getNewsById(newsId);
 		User user = userService.getUser(news.getUserId());
-		List<Comment> cmtList = commentService.getChildComment(newsId, EntityType.News);
+		List<Comment> cmtList = commentService.getChildComment(newsId, EntityType.NEWS);
 		List<ViewObject> viewObjects = new LinkedList<ViewObject>();
 		for(Comment c : cmtList) {
 			ViewObject vo = new ViewObject();
@@ -124,12 +124,14 @@ public class NewsController {
 		 // 更新评论数量，以后用异步实现
 		int count = commentService.getCommentCount(comment.getEntityId(), comment.getEntityType());
 		newsService.updateCommentCount(comment.getEntityId(), count);
+		
+		return "redirect:/news/show/" + newsId;
 	}
 	
 	@ExceptionHandler
 	@ResponseBody
 	public String error(Exception e) {
 		logger.error("[!] Error: " + e.getMessage());
-		return JSONUtil.getJSONString(1, "Upload image failed!");
+		return JSONUtil.getJSONString(1, e.toString());
 	}
 }

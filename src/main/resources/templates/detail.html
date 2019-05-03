@@ -74,7 +74,7 @@
 
 			<div class="post-comment-form">
 				<span th:text="|评论 (${news.commentCount})|"></span>
-				<form method="post" action="/addComment" th:if="${user} != null" >
+				<form method="post" action="/news/addComment" th:if="${user} != null" >
 					<div class="form-group text required comment_content">
 						<label class="text required sr-only">
 							<abbr title="required">*</abbr> 评论
