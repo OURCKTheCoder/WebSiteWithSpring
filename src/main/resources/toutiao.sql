@@ -23,7 +23,7 @@ CREATE TABLE `message` (
   `content` text NOT NULL,
   `created_date` datetime NOT NULL,
   `has_read` tinyint(4) NOT NULL,
-  `conversation_id` int(11) NOT NULL,
+  `conversation_id` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `conversation_index` (`conversation_id`),
   KEY `conversation_date` (`created_date`)

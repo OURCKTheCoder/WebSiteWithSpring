@@ -3,7 +3,7 @@ package top.ourck.beans;
 import org.springframework.stereotype.Component;
 
 /**
- * 使用ThreadLocal存储的User，以提供并发访问的安全性。<br>
+ * 使用ThreadLocal存储的User，以在保证变量可共享的同时提供并发访问的安全性。<br>
  * <b>为什么要使用ThreadLocal存储待使用的User？</b>
  * <br>
  * <ul>
@@ -16,6 +16,11 @@ import org.springframework.stereotype.Component;
  * <li>
  * 而与此同时，作为@Component的{@link top.ourck.interceptor.PassportInterceptor}是单例的。
  * 这样直接搞一个共享的User变量的话很不线程安全。
+ * </li>
+ * 
+ * <li>
+ * 另一方面，Interceptor与Controller是两个模块（两个类），他们之间无法直接共享变量。
+ * 这时候把东西（User对象）让执行者（线程）自己拿着，到了合适的地方在取出来。
  * </li>
  * </ul>
  * @author ourck
