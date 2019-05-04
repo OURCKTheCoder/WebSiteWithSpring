@@ -126,6 +126,8 @@ public class NewsController {
 		newsService.updateCommentCount(comment.getEntityId(), count);
 		
 		return "redirect:/news/show/" + newsId;
+		// TODO 评论分页？
+		// TODO +敏感词过滤模块：使用DFA。
 	}
 	
 	@ExceptionHandler

@@ -12,9 +12,7 @@ public class Comment {
 	private int userId;
 	private Date createDate;
 	
-	public Comment() {
-		// TODO Auto-generated constructor stub
-	}
+	public Comment() {}
 
 	public Comment(int id, String content, int status, int entityType, int entityId, int userId, Date createDate) {
 		super();

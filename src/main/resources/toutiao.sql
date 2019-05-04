@@ -15,3 +15,16 @@ CREATE TABLE `entity_type` (
   `name` varchar(45) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+
+CREATE TABLE `message` (
+  `id` int(11) NOT NULL,
+  `from_id` int(11) NOT NULL,
+  `to_id` int(11) NOT NULL,
+  `content` text NOT NULL,
+  `created_date` datetime NOT NULL,
+  `has_read` tinyint(4) NOT NULL,
+  `conversation_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `conversation_index` (`conversation_id`),
+  KEY `conversation_date` (`created_date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8

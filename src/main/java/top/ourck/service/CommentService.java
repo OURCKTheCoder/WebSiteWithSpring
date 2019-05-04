@@ -19,7 +19,7 @@ public class CommentService {
 	}
 	
 	public void deleteCommentById(int id) {
-		commentDAO.deleteById(id);
+		commentDAO.dropById(id);
 	}
 	
 	public int getCommentCount(int entityId, int entityType) {

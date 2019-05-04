@@ -10,9 +10,7 @@ public class LoginTicket {
 	private Date expired;
 	private int status;
 
-	public LoginTicket() {
-		// TODO Auto-generated constructor stub
-	}
+	public LoginTicket() {}
 
 	public LoginTicket(int id, int userId, String ticket, Date expired, int status) {
 		super();
