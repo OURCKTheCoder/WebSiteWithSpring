@@ -22,17 +22,19 @@ public interface MessageDAO {
 	
 	/**
 	 * Get certain user's conversation list.
+	 * 三次排序的SQL。
 	 * @param userId
 	 * @return
 	 */
-	@Select("SELECT" + FIELDS + ", count(id) as id "
+	@Select("SELECT" + FIELDS + ", count(id) as id " 			// TODO 本来是as cnt的，但是发现Message里边有一个id域用不到，所以干脆把cnt作为id存进去。这合理吗？
 			+ "FROM "
-			+ "( "
-					+ "SELECT * FROM" + TABLE_NAME + "WHERE from_id = #{userId} OR to_id = #{userId} "
-					+ "ORDER BY id ASC "
-			+ ")tt " // As a "Temp Table".
-			+ "GROUP BY conversation_id "
-			+ "ORDER BY id ASC "
+			+ "( " 												// 嵌套查询：先查与该用户有关的message，id越大，消息越新。
+					+ "SELECT * FROM" + TABLE_NAME
+					+ "WHERE from_id = #{userId} OR to_id = #{userId} "
+					+ "ORDER BY id DESC "
+			+ ") tt " 											// As a "Temp Table".
+			+ "GROUP BY conversation_id "						// TODO 执行GROUP BY后，将得到每个会话id下的最新消息。（？）
+			+ "ORDER BY id DESC "								// id越大，该次会话越新。
 			+ "LIMIT #{offset}, #{limit}")
 	List<Message> getConversationListByUserId(@Param("userId") int userId,
 											  @Param("offset") int offset,
@@ -40,7 +42,7 @@ public interface MessageDAO {
 	
 	@Select("SELECT" + SELECT_FIELDS + "FROM" + TABLE_NAME
 			+ "WHERE conversation_id = #{conversationId} "
-			+ "ORDER BY id ASC "
+			+ "ORDER BY id DESC "
 			+ "LIMIT #{offset}, #{limit}")
 	List<Message> getConversationDetail(@Param("conversationId") String conversationId,
 										@Param("offset") int offset,

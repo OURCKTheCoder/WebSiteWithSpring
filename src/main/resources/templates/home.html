@@ -27,13 +27,18 @@
 							<div class="posts">
 								<div class="post">
 									<div class="votebar">
-										<button class="click-like up" aria-pressed="false" title="赞同">
+										<button th:if="*{likeCount} > 0" class="click-like up pressed" th:attr="data-id=*{id}" title="赞同">
 											<i class="vote-arrow"></i>
-												<span class="count" th:text="*{likeCount}"></span>
+											<span class="count" th:text="*{likeCount}"></span>
 										</button>
-
-										<button class="click-dislike down" aria-pressed="true"
-											title="反对">
+										<button th:if="*{likeCount} <= 0" class="click-like up" th:attr="data-id=*{id}" title="赞同">
+											<i class="vote-arrow"></i>
+											<span class="count" th:text="*{likeCount}"></span>
+										</button>
+										<button th:if="*{likeCount} < 0" class="click-dislike down pressed" th:attr="data-id=*{id}" title="反对">
+											<i class="vote-arrow"></i>
+										</button>
+										<button th:if="*{likeCount} >= 0" class="click-dislike down" th:attr="data-id=*{id}" title="反对">
 											<i class="vote-arrow"></i>
 										</button>
 									</div>
@@ -87,5 +92,6 @@
 	</div>
 
 	<div th:include="footer::footerBar"></div>
+	<script type="text/javascript" src="/scripts/main/site/home.js"></script>
 </body>
 </html>

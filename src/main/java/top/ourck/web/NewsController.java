@@ -121,7 +121,7 @@ public class NewsController {
 		comment.setUserId(userHolder.getUser().getId());
 		commentService.addComment(comment);
 		
-		 // 更新评论数量，以后用异步实现
+		 // TODO 更新评论数量，以后用异步实现
 		int count = commentService.getCommentCount(comment.getEntityId(), comment.getEntityType());
 		newsService.updateCommentCount(comment.getEntityId(), count);
 		

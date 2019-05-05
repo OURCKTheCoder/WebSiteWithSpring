@@ -66,11 +66,13 @@ public class MessageController {
 		List<Message> msgList = msgService.getConversationList(localUid, 0, 100);
 		List<ViewObject> conversationList = new LinkedList<>();
 		for(Message m : msgList) {
+			int targetUserId = (localUid == m.getFromId() ? m.getToId() : m.getFromId());
+			User targetUser = userService.getUser(targetUserId);
 			ViewObject vo = new ViewObject();
 			vo.set("message", m);
-            vo.set("headUrl", user.getImage());
-            vo.set("userName", user.getName());
-            vo.set("targetId", localUid == m.getFromId() ? m.getToId() : m.getFromId()); // TODO ???
+            vo.set("headUrl", targetUser.getImage());
+            vo.set("userName", targetUser.getName());
+            vo.set("targetId", targetUser.getImage()); // “我”在收信页面关心的是对方是谁，而不是自己是谁。
             vo.set("totalCount", m.getId()); // TODO ???
             vo.set("unreadCount", msgService.getUnreadCountAt(localUid, m.getConversationId()));
             conversationList.add(vo);

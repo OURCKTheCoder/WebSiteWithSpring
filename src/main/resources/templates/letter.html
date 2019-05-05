@@ -7,13 +7,13 @@
 
 	<div id="main">
 		<div class="container bounceInUp animated">
-			<ul class="letter-list" th:each="conversation : ${conversations}">
+			<ul class="letter-list" th:each="messagevo : ${conversations}">
 				<li id="conversation-item-10005_622873">
 					<a class="letter-link"
-						th:href="|/msg/detail?conversationId=${conversation.objs['message'].conversationId}|"></a>
+						th:href="|/msg/detail?conversationId=${messagevo.objs['message'].conversationId}|"></a>
 					<div class="letter-info">
 						<span class="l-time"
-							th:text="${conversation.objs['message'].createdDate}"></span>
+							th:text="${messagevo.objs['message'].createdDate}"></span>
 						<div class="l-operate-bar">
 							<!--
                             <a href="javascript:void(0);" class="sns-action-del" data-id="">
@@ -21,24 +21,24 @@
                             </a>
                             -->
 							<a
-								th:href="|/msg/detail?conversationId=${conversation.objs['message'].conversationId}|"
-								th:text="|共${conversation.objs['message'].id}条会话|"></a>
+								th:href="|/msg/detail?conversationId=${messagevo.objs['message'].conversationId}|"
+								th:text="|共${messagevo.objs['message'].id}条会话|"></a>
 						</div>
 					</div>
-					<div class="chat-headbox" th:object="${conversation}">
+					<div class="chat-headbox" th:object="${messagevo}">
 						<span class="msg-num" th:text="*{objs['unreadCount']}"></span> <a
 							class="list-head" th:href="|/user/*{objs['userId']}|">
 							<img alt="头像" th:src="*{objs['headUrl']}">
 						</a>
 					</div>
 					<div class="letter-detail">
-						<a th:title="${conversation.objs['userName']}"
+						<a th:title="${messagevo.objs['userName']}"
 							class="letter-name level-color-1"
-							th:text="${conversation.objs['userName']}"> </a>
+							th:text="${messagevo.objs['userName']}"> </a>
 						<p class="letter-brief">
 							<a
-								th:href="|/msg/detail?conversationId=${conversation.objs['message'].conversationId}|"
-								th:text="${conversation.objs['message'].content}"></a>
+								th:href="|/msg/detail?conversationId=${messagevo.objs['message'].conversationId}|"
+								th:text="${messagevo.objs['message'].content}"></a>
 						</p>
 					</div>
 				</li>

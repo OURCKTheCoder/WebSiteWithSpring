@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import top.ourck.beans.News;
 
@@ -29,4 +30,19 @@ public interface NewsDAO {
 	List<News> selectByUserIdAndOffset(@Param("id") int id,
 										@Param("offset") int offset,
 										@Param("limit") int limit);
+	
+	@Select("SELECT comment_count FROM" + TABLE_NAME + "WHERE id = #{newsId}")
+	int getCommentCount(int newsId);
+	
+	@Update("UPDATE" + TABLE_NAME + "SET comment_count = #{newCount} WHERE id = #{newsId}")
+	void updateCommentCount(@Param("newsId") int newsId,
+							@Param("newCount") int newCount);
+	
+	@Select("SELECT like_count FROM" + TABLE_NAME + "WHERE id = #{newsId}")
+	int getLikeCount(int newsId);
+	
+	@Update("UPDATE" + TABLE_NAME + "SET like_count = #{newCount} WHERE id = #{newsId}")
+	void updateLikeCount(@Param("newsId") int newsId,
+						 @Param("newCount") int newCount);
+	
 }
