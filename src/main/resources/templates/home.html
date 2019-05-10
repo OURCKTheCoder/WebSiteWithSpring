@@ -15,7 +15,7 @@
 						<p th:text="${vo.objs['news'].createdDate}"></p>
                     </div> -->
 
-					<div class="container" id="daily" th:each="vo : ${vos}">
+					<div class="container hvr-grow-shadow" id="daily" th:each="vo : ${vos}">
 						<div class="jscroll-inner" th:object="${vo.objs['news']}">
 							<div class="daily"></div>
 

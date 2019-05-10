@@ -6,40 +6,41 @@
 
 	<div id="main">
 		<div class="container bounceInUp animated">
-			<div class="post detail">
+			<div class="container hvr-grow-shadow" style="margin: 20px">
+				<div class="post detail">
 
-				<div class="votebar">
-					<button class="click-like up" aria-pressed="false" title="赞同">
-						<i class="vote-arrow"></i><span class="count"
-							th:text="${news.likeCount}"></span>
-					</button>
-					<button class="click-dislike down" aria-pressed="true" title="反对">
-						<i class="vote-arrow"></i>
-					</button>
-				</div>
-
-				<div class="content" data-url="http://nowcoder.com/posts/5l3hjr">
-					<div class="content-img">
-						<img th:src="${news.image}" alt="">
+					<div class="votebar">
+						<button class="click-like up" aria-pressed="false" title="赞同">
+							<i class="vote-arrow"></i><span class="count"
+								th:text="${news.likeCount}"></span>
+						</button>
+						<button class="click-dislike down" aria-pressed="true" title="反对">
+							<i class="vote-arrow"></i>
+						</button>
 					</div>
-					<div class="content-main">
-						<h3 class="title">
-							<a target="_blank" rel="external nofollow" th:href="${news.link}"
-								th:text="${news.title}"></a>
-						</h3>
-						<div class="meta" th:text="${news.link}">
-							<span th:text="${news.commentCount}"> <i
-								class="fa icon-comment"></i>
-							</span>
+
+					<div class="content" data-url="http://nowcoder.com/posts/5l3hjr">
+						<div class="content-img">
+							<img th:src="${news.image}" alt="">
+						</div>
+						<div class="content-main">
+							<h3 class="title">
+								<a target="_blank" rel="external nofollow"
+									th:href="${news.link}" th:text="${news.title}"></a>
+							</h3>
+							<div class="meta" th:text="${news.link}">
+								<span th:text="${news.commentCount}"> <i
+									class="fa icon-comment"></i>
+								</span>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="user-info">
-					<div class="user-avatar">
-						<a href="http://nowcoder.com/u/125701"><img width="32"
-							class="img-circle" th:src="${owner.image}"></a>
-					</div>
-					<!--
+					<div class="user-info">
+						<div class="user-avatar">
+							<a href="http://nowcoder.com/u/125701"><img width="32"
+								class="img-circle" th:src="${owner.image}"></a>
+						</div>
+						<!--
                 <div class="info">
                     <h5>分享者</h5>
 
@@ -49,10 +50,11 @@
                     <a class="btn btn-default btn-xs" href="http://nowcoder.com/signin"><i class="fa icon-eye"></i> 关注TA</a>
                 </div>
                 -->
-				</div>
+					</div>
 
-				<div class="subject-name">
-					来自 <a th:href="|/user/${owner.id}|" th:text="${owner.name}"></a>
+					<div class="subject-name">
+						来自 <a th:href="|/user/${owner.id}|" th:text="${owner.name}"></a>
+					</div>
 				</div>
 			</div>
 			<!--
@@ -74,12 +76,12 @@
 
 			<div class="post-comment-form">
 				<span th:text="|评论 (${news.commentCount})|"></span>
-				<form method="post" action="/news/addComment" th:if="${user} != null" >
+				<form method="post" action="/news/addComment"
+					th:if="${user} != null">
 					<div class="form-group text required comment_content">
-						<label class="text required sr-only">
-							<abbr title="required">*</abbr> 评论
-						</label>
-						<input type="hidden" name="newsId" th:value="${news.id}" />
+						<label class="text required sr-only"> <abbr
+							title="required">*</abbr> 评论
+						</label> <input type="hidden" name="newsId" th:value="${news.id}" />
 						<textarea rows="5"
 							class="text required comment-content form-control" name="content"
 							id="content"></textarea>
@@ -96,13 +98,12 @@
 
 			<div id="comments" class="comments" th:each="commentvo : ${comments}">
 				<div class="media">
-					<a class="media-left" href="http://nowcoder.com/u/210176" th:object="${commentvo.objs['user']}">
-						<img th:src="*{image}">
+					<a class="media-left" href="http://nowcoder.com/u/210176"
+						th:object="${commentvo.objs['user']}"> <img th:src="*{image}">
 					</a>
 					<div class="media-body" th:object="${commentvo.objs['comment']}">
 						<h4 class="media-heading">
-							<small class="date" th:text="*{createDate}">
-							</small>
+							<small class="date" th:text="*{createDate}"> </small>
 						</h4>
 						<div th:text="*{content}"></div>
 					</div>

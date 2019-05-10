@@ -5061,7 +5061,7 @@ a.text-#000000:hover {
 }
 /* line 18, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/posts.scss */
 .post.detail {
-  margin-top: 80px;
+  margin-top: 20px;
 }
 /* line 21, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/posts.scss */
 .post.detail:hover {
