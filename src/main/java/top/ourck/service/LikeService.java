@@ -3,7 +3,7 @@ package top.ourck.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import top.ourck.dao.LikeDAO;
+import top.ourck.dao.RedisDAO;
 import top.ourck.util.RedisKeyUtil;
 
 @Service
@@ -14,15 +14,15 @@ public class LikeService {
 	 */
 	
 	@Autowired
-	private LikeDAO likeDAO;
+	private RedisDAO redisDAO;
 
 	public int getLikeStatus(int userId, int entityType, int entityId) {
 		String entityLikeKey = RedisKeyUtil.getLikeKey(entityId, entityType);
-		if(likeDAO.sismember(entityLikeKey, String.valueOf(userId)))
+		if(redisDAO.sismember(entityLikeKey, String.valueOf(userId)))
 			return 1;
 		else {
 			String entityDislikeKey = RedisKeyUtil.getDislikeKey(entityId, entityType);
-			return likeDAO.sismember(entityDislikeKey, String.valueOf(userId)) ? -1 : 0;
+			return redisDAO.sismember(entityDislikeKey, String.valueOf(userId)) ? -1 : 0;
 		}
 	}
 	
@@ -40,12 +40,12 @@ public class LikeService {
 	 */
 	public long incLikeOn(int userId, int entityType, int entityId) {
 		String entityLikeKey = RedisKeyUtil.getLikeKey(entityType, entityId);
-		likeDAO.sadd(entityLikeKey, String.valueOf(userId));
+		redisDAO.sadd(entityLikeKey, String.valueOf(userId));
 		
 		String entityDislikeKey = RedisKeyUtil.getDislikeKey(entityType, entityId);
-		likeDAO.srem(entityDislikeKey, String.valueOf(userId));
+		redisDAO.srem(entityDislikeKey, String.valueOf(userId));
 		
-		return likeDAO.scard(entityLikeKey);
+		return redisDAO.scard(entityLikeKey);
 	}
 	
 	/**
@@ -62,12 +62,12 @@ public class LikeService {
 	 */
 	public long incDislikeOn(int userId, int entityType, int entityId) {
 		String entityDislikeKey = RedisKeyUtil.getDislikeKey(entityType, entityId);
-		likeDAO.sadd(entityDislikeKey, String.valueOf(userId));
+		redisDAO.sadd(entityDislikeKey, String.valueOf(userId));
 
 		String entityLikeKey = RedisKeyUtil.getLikeKey(entityType, entityId);
-		likeDAO.srem(entityLikeKey, String.valueOf(userId));
+		redisDAO.srem(entityLikeKey, String.valueOf(userId));
 		
-		return likeDAO.scard(entityLikeKey);
+		return redisDAO.scard(entityLikeKey);
 	}
 	
 }

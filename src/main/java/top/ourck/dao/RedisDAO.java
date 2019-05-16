@@ -13,7 +13,7 @@ import redis.clients.jedis.JedisPool;
  * @author ourck
  */
 @Component
-public class LikeDAO {
+public class RedisDAO {
 	private static final Logger logger = LoggerFactory.getLogger("JedisLogger");
 	
 	@Autowired
