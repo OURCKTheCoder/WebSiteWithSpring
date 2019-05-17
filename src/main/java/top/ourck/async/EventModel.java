@@ -50,28 +50,34 @@ public class EventModel {
 		return params;
 	}
 
-	public void setType(EventType type) {
+	public EventModel setType(EventType type) {
 		this.type = type;
+		return this;
 	}
 
-	public void setCallerId(int callerId) {
+	public EventModel setCallerId(int callerId) {
 		this.callerId = callerId;
+		return this;
 	}
 
-	public void setEntityId(int entityId) {
+	public EventModel setEntityId(int entityId) {
 		this.entityId = entityId;
+		return this;
 	}
 
-	public void setEntityType(int entityType) {
+	public EventModel setEntityType(int entityType) {
 		this.entityType = entityType;
+		return this;
 	}
 
-	public void setEntityOwnerId(int entityOwnerId) {
+	public EventModel setEntityOwnerId(int entityOwnerId) {
 		this.entityOwnerId = entityOwnerId;
+		return this;
 	}
 
-	public void setParams(Map<String, String> params) {
+	public EventModel setParams(Map<String, String> params) {
 		this.params = params;
+		return this;
 	}
 	
 }

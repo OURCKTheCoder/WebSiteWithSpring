@@ -1,5 +1,7 @@
 package top.ourck.dao;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +54,23 @@ public class RedisDAO {
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			return -1;
+		}
+	}
+	
+	public long lpush(String key, String val) {
+		try(Jedis jedis = jedisPool.getResource()) {
+			return jedis.lpush(key, val);
+		} catch(Exception e) {
+			logger.error(e.getMessage());
+			return -1;
+		}
+	}
+	
+	public List<String> brpop(int timeout, String key) {
+		try(Jedis jedis = jedisPool.getResource()) {
+			return jedis.brpop(timeout, key);
+		} catch (Exception e) {
+			return null;
 		}
 	}
 }

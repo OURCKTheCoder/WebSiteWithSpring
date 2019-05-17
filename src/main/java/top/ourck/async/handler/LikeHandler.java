@@ -3,10 +3,12 @@ package top.ourck.async.handler;
 import java.util.Arrays;
 import java.util.List;
 
-import top.ourck.async.EventHandler;
+import org.springframework.stereotype.Component;
+
 import top.ourck.async.EventModel;
 import top.ourck.async.EventType;
 
+@Component
 public class LikeHandler implements EventHandler {
 
 	private static final List<EventType> SUPPORTED_EVENT_TYPES;
@@ -18,8 +20,7 @@ public class LikeHandler implements EventHandler {
 	
 	@Override
 	public void doHandle(EventModel e) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Get an event! " + e);
 	}
 
 	@Override
