@@ -106,10 +106,12 @@ public class UserService {
 				// [!] Add ticket on both side.
 				String ticket = genTicket(u.getId());
 				info.put("ticket", ticket);
+				info.put("uid", u.getId());
 			}
 			else {
 				info.put("success", "false");
 				info.put("msgpwd", "密码不正确");
+				info.put("uid", u.getId());
 			}
 			return info;
 		}

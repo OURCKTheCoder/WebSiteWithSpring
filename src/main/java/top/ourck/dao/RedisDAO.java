@@ -70,6 +70,7 @@ public class RedisDAO {
 		try(Jedis jedis = jedisPool.getResource()) {
 			return jedis.brpop(timeout, key);
 		} catch (Exception e) {
+			logger.error(e.getMessage());
 			return null;
 		}
 	}
