@@ -73,7 +73,7 @@ public class MessageController {
             vo.set("headUrl", targetUser.getImage());
             vo.set("userName", targetUser.getName());
             vo.set("targetId", targetUser.getImage()); // “我”在收信页面关心的是对方是谁，而不是自己是谁。
-            vo.set("totalCount", m.getId()); // TODO ???
+            vo.set("totalCount", m.getId());
             vo.set("unreadCount", msgService.getUnreadCountAt(localUid, m.getConversationId()));
             conversationList.add(vo);
 		}
