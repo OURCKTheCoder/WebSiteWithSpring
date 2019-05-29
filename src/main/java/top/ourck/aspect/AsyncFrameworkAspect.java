@@ -8,21 +8,25 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+/**
+ * 异步框架的日志切面
+ * @author ourck
+ */
 @Aspect
 @Component
-public class LogAspect {
+public class AsyncFrameworkAspect {
 
-	private static final Logger logger = LoggerFactory.getLogger(LogAspect.class);
+	private static final Logger logger = LoggerFactory.getLogger(AsyncFrameworkAspect.class);
 	
-	@Before("execution(* top.ourck.web.*.*(..))")
-	public void beforeMethod(JoinPoint p) {
+	@Before("execution(* top.ourck.async.handler.*.*(..))")
+	public void beforeEventHandling(JoinPoint p) {
 		StringBuilder stb = new StringBuilder();
 		for(Object obj : p.getArgs())
 			stb.append(obj);
 		logger.info(" [+] " + p.toShortString() + " entered, with args = " + p.getArgs());
 	}
-
-	@After("execution(* top.ourck.web.*.*(..))")
+	
+	@After("execution(* top.ourck.async.handler.*.*(..))")
 	public void afterMethod(JoinPoint p) {
 		logger.info(" [-] " + p.toShortString() + " exited.");
 	}

@@ -29,17 +29,12 @@ public class EventConsumer implements InitializingBean, ApplicationContextAware 
 	private static final Logger logger = LoggerFactory.getLogger("logger");
 	
 	@Autowired
-	private EventProducer producer;
-	
-	@Autowired
 	private RedisDAO redisDAO;
 	
 	private class EventMonitorThread implements Runnable {
 		
 		@Override
 		public void run() {
-			EventModel sampleEvent = new EventModel(EventType.LIKE, 0, 0, 0, 0, null);
-			producer.fireEvent(sampleEvent);
 			while(true) {
 				String key = RedisKeyUtil.getEventQueueKey();
 				List<String> eventStrs = redisDAO.brpop(0, key);

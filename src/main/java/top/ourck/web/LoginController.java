@@ -17,6 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import top.ourck.async.EventModel;
+import top.ourck.async.EventProducer;
+import top.ourck.async.EventType;
+import top.ourck.beans.EntityType;
 import top.ourck.service.UserService;
 import top.ourck.util.JSONUtil;
 
@@ -29,6 +33,9 @@ public class LoginController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private EventProducer eventProducer;
 	
 	@RequestMapping("/reg")
 	@ResponseBody
@@ -56,11 +63,24 @@ public class LoginController {
 			if(rememberMe > 0)
 				ck.setMaxAge(1000 * 60 * 60 * 24); // 1-day man
 			response.addCookie(ck);
-		}
-		if(info.get("success").toString().equals("true"))
+			
 			return JSONUtil.getJSONString(0, info);
-		else
+		}
+		else {
+			String uid = info.get("uid").toString(); // TODO 这里应该强制转型还是应该像左边这样做？
+			if(uid != null) {
+				EventModel e = new EventModel();
+				e.setEntityType(EntityType.NOTIFICATION);
+				e.setCallerId(Integer.parseInt(uid));
+				e.setEntityType(EntityType.NOTIFICATION);
+				e.setType(EventType.LOGIN_EXCEPTION);
+				e.setEntityOwnerId(Integer.parseInt(uid));
+				eventProducer.fireEvent(e);
+			}
+			
 			return JSONUtil.getJSONString(1, info);
+		}
+			
 	}
 	
 	@RequestMapping("/logout")
