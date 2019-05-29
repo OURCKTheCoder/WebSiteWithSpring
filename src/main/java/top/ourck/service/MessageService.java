@@ -1,5 +1,6 @@
 package top.ourck.service;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,15 @@ public class MessageService {
 	}
 	
 	public List<Message> getConversationList(int userId, int offset, int limit) {
-		return messageDAO.getConversationListByUserId(userId, offset, limit);
+//		return messageDAO.getConversationListByUserId(userId, offset, limit);
+		List<Message> conversations = new LinkedList<Message>();
+		List<String> conversationIds = 
+				messageDAO.getConversationsByUser(userId, offset, limit);
+		for(String id : conversationIds) {
+			conversations.add(messageDAO.getConversationDigest(id));
+		}
+		
+		return conversations;
 	}
 	
 	public List<Message> getConversationDetail(String conversationId, int offset, int limit) {

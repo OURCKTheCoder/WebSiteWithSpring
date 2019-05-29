@@ -21,12 +21,24 @@ public interface MessageDAO {
 	int addMessage(Message message);
 	
 	/**
-	 * Get certain user's conversation list.
-	 * 三次排序的SQL。
-	 * @param userId
-	 * @return
+	 * Get certain user's conversation list & digest.
+	 * @deprecated 该查询试图从一次聚集查询中<b>选择出非聚集列</b>。<br>
+	 * 尽最大努力减少查询次数，这很好。<br>
+	 * 但这无论是在数据库优化上（MySQL新版本默认要求ONLY_FULL_GROUP_BY）<br>
+	 * 还是在聚集查询的语义上<br>
+	 * 都是不正确的。<br>
+	 * 要完成同样的功能，请先使用getConversationsByUser()取得对话列表，
+	 * 再从列表中逐个用ID使用getConversationDigest()取得对话摘要。
+	 * @param userId 用户ID
+	 * @param offset 查询起始偏移
+	 * @param limit 查询条目数
+	 * @return 对话概览列表
 	 */
-	@Select("SELECT" + FIELDS + ", count(id) as id " 			// TODO 本来是as cnt的，但是发现Message里边有一个id域用不到，所以干脆把cnt作为id存进去。这合理吗？
+	@Deprecated
+	@Select("SELECT" + FIELDS + ", count(id) as id " 			// 本来是as cnt的，但是发现Message里边有一个id域用不到，所以干脆把cnt作为id存进去。
+																// 这在设计上不合理，但却给业务逻辑上提供了很大的便利。
+																// 看看不用这个方法的话，要调用两次才能实现目标。
+																// 见@deprecated说明。
 			+ "FROM "
 			+ "( " 												// 嵌套查询：先查与该用户有关的message，id越大，消息越新。
 					+ "SELECT * FROM" + TABLE_NAME
@@ -39,6 +51,33 @@ public interface MessageDAO {
 	List<Message> getConversationListByUserId(@Param("userId") int userId,
 											  @Param("offset") int offset,
 											  @Param("limit") int limit);
+	/**
+	 * 取得与该用户相关的所有对话ID（conversation_id)。
+	 * @param userId 用户ID
+	 * @param offset 查询起始偏移
+	 * @param limit 查询条目数
+	 * @return 对话ID列表
+	 */
+	@Select("SELECT DISTINCT conversation_id " + 
+			"FROM message " + 
+			"WHERE from_id = #{userId} OR to_id = #{userId}")
+	List<String> getConversationsByUser(@Param("userId") int userId,
+										  @Param("offset") int offset,
+										  @Param("limit") int limit);
+	
+	/**
+	 * 获取对话的摘要。<br>
+	 * 摘要包括：该对话中的最新消息 & 该对话中的消息总数。<br>
+	 * 注意：消息总数将作为Message的id域返回。
+	 * @param conversationId 对话ID
+	 * @return 该对话摘要
+	 */
+	@Select("SELECT COUNT(id) AS id," + FIELDS +
+			"FROM message " + 
+			"WHERE conversation_id = #{conversationId} " + 
+			"ORDER BY id DESC " + 	// 只取最新
+			"LIMIT 0, 1 ")			// 的一条
+	Message getConversationDigest(@Param("conversationId") String conversationId);
 	
 	@Select("SELECT" + SELECT_FIELDS + "FROM" + TABLE_NAME
 			+ "WHERE conversation_id = #{conversationId} "
