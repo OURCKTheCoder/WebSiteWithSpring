@@ -25,7 +25,9 @@ public class MessageService {
 		List<String> conversationIds = 
 				messageDAO.getConversationsByUser(userId, offset, limit);
 		for(String id : conversationIds) {
-			conversations.add(messageDAO.getConversationDigest(id));
+			Message msg = messageDAO.getConversationDigest(id);
+			msg.setId(messageDAO.getConversationMsgCount(id));
+			conversations.add(msg);
 		}
 		
 		return conversations;

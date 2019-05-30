@@ -41,12 +41,16 @@ public class LoginController {
 	@ResponseBody
 	public String register(@RequestParam("username") String userName,
 						   @RequestParam("password") String passwd, 
-						   @RequestParam(value="rember", defaultValue="0") int rememberMe) throws UnsupportedEncodingException {
+						   @RequestParam(value="rember", defaultValue="0") int rememberMe,
+						   HttpServletRequest request,
+						   HttpServletResponse response) throws UnsupportedEncodingException {
 		Map<String, Object> info = userService.register(userName, passwd);
-		if(info.get("success").toString().equals("true"))
-			return JSONUtil.getJSONString(0, info);
-		else
+		if(info.get("success").toString().equals("true")) {
+			return auth(userName, passwd, rememberMe, request, response);
+		}
+		else {
 			return JSONUtil.getJSONString(1, info);
+		}
 			
 	}
 	
@@ -67,7 +71,12 @@ public class LoginController {
 			return JSONUtil.getJSONString(0, info);
 		}
 		else {
-			String uid = info.get("uid").toString(); // TODO 这里应该强制转型还是应该像左边这样做？
+			String uid = (String)info.get("uid"); // “这里应该强制转型还是应该像左边这样做？”
+												  // 应该强制转型。
+												  // 这里的强制转型表明了程序员预期这个对象是一个String，
+												  // 如果该对象真是String，则不论是转型还是toString()都能得到正确结果；
+												  // 如果该对象不是String，转型的方式将直接抛出异常，
+												  // 而toString()将会把错误的信息返回给前端。
 			if(uid != null) {
 				EventModel e = new EventModel();
 				e.setEntityType(EntityType.NOTIFICATION);

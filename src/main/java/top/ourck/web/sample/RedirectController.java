@@ -15,7 +15,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequestMapping("/redirect")
-public class RedirectController { // TODO 以隔壁rrtest的控制器做的实验，得改！
+public class RedirectController { // 以隔壁rrtest的控制器做的实验，得改！
 
 	@RequestMapping("/byCmd")
 	public String redirect() {

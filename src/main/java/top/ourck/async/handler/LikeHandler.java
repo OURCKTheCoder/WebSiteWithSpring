@@ -40,7 +40,7 @@ public class LikeHandler implements EventHandler {
 	public void doHandle(EventModel e) {
 		System.out.println("LIKE EventHandler Get an event! " + e);
 		Message msg = new Message();
-		int fromId = 1; // System notification from "system".
+		int fromId = UserService.SYSTEM_UID; // System notification from "system".
 		int toId = e.getEntityOwnerId();
 		
 		msg.setFromId(fromId);

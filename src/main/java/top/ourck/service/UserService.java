@@ -20,6 +20,8 @@ import top.ourck.dao.UserDAO;
 @Service
 public class UserService {
 
+	public static final int SYSTEM_UID = 1;
+	
 	@Autowired
 	private UserDAO userDAO;
 	
@@ -71,7 +73,6 @@ public class UserService {
 				u.setPassword(DigestUtils.md5DigestAsHex((passwd + salt).getBytes("iso-8859-1")));
 				userDAO.addUser(u);
 				
-				// TODO 登陆！
 				info.put("success", "true");
 				return info;
 		}

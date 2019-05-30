@@ -57,6 +57,7 @@ public class PassportInterceptor extends HandlerInterceptorAdapter {
 				// 1. Get ticket string.
 				String tStr = ck.getValue();
 				LoginTicket t = loginTicketService.getTicket(tStr);
+				if(t == null) break;
 				
 				// 2. Validate this ticket.
 				Date deadline = t.getExpired();

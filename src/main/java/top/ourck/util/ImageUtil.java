@@ -7,7 +7,7 @@ public class ImageUtil {
 	public static String[] VALID_EXTNAMES = {"jpg", "png", "bmp", "jpeg"};
 	
 	public static boolean isValid(String extName) {
-		for(String ext : VALID_EXTNAMES) { // TODO 对于小规模的数组，遍历反而比Hash要快。
+		for(String ext : VALID_EXTNAMES) { // 对于小规模的数组，遍历反而比Hash要快。
 			if(ext.equals(extName)) return true;
 		}
 		

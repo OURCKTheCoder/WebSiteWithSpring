@@ -48,7 +48,7 @@ public class MessageController {
 		msg.setToId(toId);
 		msg.setContent(content);
 		msg.setConversationId(fromId < toId ? String.format("%d_%d", fromId, toId)
-											: String.format("%d_%d", toId, fromId)); // TODO A conversation saves message transferred in both way!!!
+											: String.format("%d_%d", toId, fromId)); // A conversation saves message transferred in both way!!!
 		msg.setCreatedDate(new Date());
 		msg.setHasRead(0);
 		msgService.addMessage(msg);

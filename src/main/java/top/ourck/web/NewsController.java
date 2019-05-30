@@ -26,6 +26,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.nowcoder.beans.ViewObject;
 
+import top.ourck.async.EventModel;
+import top.ourck.async.EventProducer;
+import top.ourck.async.EventType;
 import top.ourck.beans.Comment;
 import top.ourck.beans.EntityType;
 import top.ourck.beans.News;
@@ -55,6 +58,9 @@ public class NewsController {
 	
 	@Autowired
 	private UserHolder userHolder;
+	
+	@Autowired
+	private EventProducer eventProduer;
 	
 	@RequestMapping("/image")
 	public void getImage(@RequestParam("name") String fileName,
@@ -121,9 +127,17 @@ public class NewsController {
 		comment.setUserId(userHolder.getUser().getId());
 		commentService.addComment(comment);
 		
-		 // TODO 更新评论数量，以后用异步实现
+		 // 更新评论数量，并异步通知新闻所有者
 		int count = commentService.getCommentCount(comment.getEntityId(), comment.getEntityType());
 		newsService.updateCommentCount(comment.getEntityId(), count);
+		
+		EventModel e = new EventModel();
+		e.setCallerId(userHolder.getUser().getId())
+		 .setEntityId(newsId)
+		 .setEntityOwnerId(newsService.getNewsById(newsId).getUserId())
+		 .setEntityType(EntityType.NEWS)
+		 .setType(EventType.COMMENT);
+		eventProduer.fireEvent(e);
 		
 		return "redirect:/news/show/" + newsId;
 		// TODO 评论分页？

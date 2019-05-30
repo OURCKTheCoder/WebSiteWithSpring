@@ -12,7 +12,6 @@ public class EventModel {
 	private Map<String, String> params;
 	
 	public EventModel() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public EventModel(EventType type, int callerId, int entityId, int entityType, int entityOwnerId,
