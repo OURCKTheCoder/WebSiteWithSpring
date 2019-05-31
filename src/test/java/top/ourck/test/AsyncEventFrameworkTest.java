@@ -18,9 +18,6 @@ public class AsyncEventFrameworkTest {
 	@Autowired
 	private EventProducer producer;
 	
-	@Autowired
-	private EventConsumer consumer;
-	
 	@Test
 	public void asyncEventFrameworkTest() {
 		EventModel e = new EventModel(EventType.LIKE, 0, 0, 0, 0, null);

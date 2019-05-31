@@ -117,7 +117,7 @@ public class UserService {
 				int expireSec = rememberMe ? BizConstUtil.LOGIN_REMEMBERME_EXPIRE_SEC
 						: BizConstUtil.LOGIN_NOT_REMEMBERME_EXPIRE_SEC;
 				LoginTicket ticket = genTicket(u.getId(), expireSec);
-				info.put("ticket", ticket);
+				info.put("ticket", ticket.getTicket());
 				info.put("uid", u.getId());
 			}
 			else {
@@ -138,7 +138,7 @@ public class UserService {
 		t.setUserId(userId);
 		t.setStatus(0);
 		Date d = new Date();
-		d.setTime(d.getTime() + expireSec);
+		d.setTime(d.getTime() + expireSec * 1000);
 		t.setExpired(d);
 		t.setTicket(UUID.randomUUID().toString().replaceAll("-", ""));
 		loginTicketDAO.addTicket(t);
