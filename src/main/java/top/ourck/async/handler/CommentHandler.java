@@ -13,6 +13,7 @@ import top.ourck.beans.Message;
 import top.ourck.service.MessageService;
 import top.ourck.service.NewsService;
 import top.ourck.service.UserService;
+import top.ourck.util.BizConstUtil;
 
 @Component
 public class CommentHandler implements EventHandler {
@@ -31,7 +32,7 @@ public class CommentHandler implements EventHandler {
 	@Override
 	public void doHandle(EventModel e) {
 		int resUid = e.getCallerId();
-		int fromUid = UserService.SYSTEM_UID;
+		int fromUid = BizConstUtil.USER_SYSTEM_UID;
 		int toUid = e.getEntityOwnerId();
 		int targetNewsId = e.getEntityId();
 		

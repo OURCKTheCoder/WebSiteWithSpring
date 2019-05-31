@@ -22,6 +22,7 @@ import top.ourck.async.EventProducer;
 import top.ourck.async.EventType;
 import top.ourck.beans.EntityType;
 import top.ourck.service.UserService;
+import top.ourck.util.BizConstUtil;
 import top.ourck.util.JSONUtil;
 
 @Controller
@@ -59,12 +60,14 @@ public class LoginController {
 					   @RequestParam("password") String passwd, 
 					   @RequestParam(value="rember", defaultValue="0") int rememberMe,
 					   HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
-		Map<String, Object> info = userService.getAuth(userName, passwd);
+		Map<String, Object> info = userService.getAuth(userName, passwd, rememberMe > 0);
 		if(info.get("success").equals("true")) { // If login success, give him a cookie.
 			Cookie ck = new Cookie("ticket", info.get("ticket").toString());
 			ck.setPath("/");
 			if(rememberMe > 0)
-				ck.setMaxAge(1000 * 60 * 60 * 24); // 1-day man
+				ck.setMaxAge(BizConstUtil.LOGIN_REMEMBERME_EXPIRE_SEC);
+			else
+				ck.setMaxAge(BizConstUtil.LOGIN_NOT_REMEMBERME_EXPIRE_SEC);
 			response.addCookie(ck);
 			
 			return JSONUtil.getJSONString(0, info);

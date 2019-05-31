@@ -15,13 +15,12 @@ import top.ourck.beans.LoginTicket;
 import top.ourck.beans.User;
 import top.ourck.dao.LoginTicketDAO;
 import top.ourck.dao.UserDAO;
+import top.ourck.util.BizConstUtil;
 import top.ourck.util.StringUtil;
 
 @Service
 public class UserService {
 
-	public static final int SYSTEM_UID = 1;
-	
 	@Autowired
 	private UserDAO userDAO;
 	
@@ -88,7 +87,7 @@ public class UserService {
 		}
 	}
 
-	public Map<String, Object> getAuth(String userName, String passwd) throws UnsupportedEncodingException {
+	public Map<String, Object> getAuth(String userName, String passwd, boolean rememberMe) throws UnsupportedEncodingException {
 		Map<String, Object> info = new HashMap<>();
 		
 		if(StringUtil.isBlank(userName)) {
@@ -114,8 +113,10 @@ public class UserService {
 			String input = DigestUtils.md5DigestAsHex((passwd + salt).getBytes("iso-8859-1"));
 			if(input.equals(pwd)) {
 				info.put("success", "true");
-				// [!] Add ticket on both side.
-				String ticket = genTicket(u.getId());
+				// Add ticket on both side.
+				int expireSec = rememberMe ? BizConstUtil.LOGIN_REMEMBERME_EXPIRE_SEC
+						: BizConstUtil.LOGIN_NOT_REMEMBERME_EXPIRE_SEC;
+				LoginTicket ticket = genTicket(u.getId(), expireSec);
 				info.put("ticket", ticket);
 				info.put("uid", u.getId());
 			}
@@ -132,17 +133,17 @@ public class UserService {
 		loginTicketDAO.updateStatus(1, ticket);
 	}
 	
-	private String genTicket(int userId) {
+	private LoginTicket genTicket(int userId, int expireSec) {
 		LoginTicket t = new LoginTicket();
 		t.setUserId(userId);
 		t.setStatus(0);
 		Date d = new Date();
-		d.setTime(d.getTime() + 10 * 60 * 1000); // 10-min man.
+		d.setTime(d.getTime() + expireSec);
 		t.setExpired(d);
 		t.setTicket(UUID.randomUUID().toString().replaceAll("-", ""));
 		loginTicketDAO.addTicket(t);
 		
-		return t.getTicket();
+		return t;
 	}
 	
 }

@@ -13,6 +13,7 @@ import top.ourck.beans.Message;
 import top.ourck.service.MessageService;
 import top.ourck.service.NewsService;
 import top.ourck.service.UserService;
+import top.ourck.util.BizConstUtil;
 
 @Component
 public class LikeHandler implements EventHandler {
@@ -40,7 +41,7 @@ public class LikeHandler implements EventHandler {
 	public void doHandle(EventModel e) {
 		System.out.println("LIKE EventHandler Get an event! " + e);
 		Message msg = new Message();
-		int fromId = UserService.SYSTEM_UID; // System notification from "system".
+		int fromId = BizConstUtil.USER_SYSTEM_UID; // System notification from "system".
 		int toId = e.getEntityOwnerId();
 		
 		msg.setFromId(fromId);

@@ -6,10 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.nowcoder.beans.ViewObject;
 
@@ -18,42 +18,28 @@ import top.ourck.service.NewsService;
 import top.ourck.service.UserService;
 
 @Controller
-public class HomeController {
+public class UserController {
+	
+	@Autowired
+	private UserService userService;
 	
 	@Autowired
 	private NewsService newsService;
 	
-	@Autowired
-	private UserService userService;
-
-	@RequestMapping("/home")
-	public ModelAndView hello(Model model) {
-		model.addAttribute("arg", "this is an arg from controller!");
-		return new ModelAndView("index");
-	}
-	
-	@RequestMapping("/homeWithArg")
-	public ModelAndView helloWithArg(Model model, @RequestParam("arg") String arg) {
-		model.addAttribute("arg", arg);
-		return new ModelAndView("index");
-	}
-
-	
-	
-	
-	
-	
-	// ===========================================================
-	// ===================== From NowCoder =======================
-	// ===========================================================
-	
-    @RequestMapping(path = {"/", "/index"}, method = {RequestMethod.GET, RequestMethod.POST})
-    public String index(@RequestParam(value = "userId", defaultValue = "0") int userId,
-    					@RequestParam(value="pop", defaultValue="0") int pop,
-                        Model model) {
-        model.addAttribute("vos", getNews(0, 0, 10));
+    /**
+     * TODO 注意：{userId}后的反斜杠！
+     * @param userId
+     * @param pop
+     * @param model
+     * @return
+     */
+    @RequestMapping(path = {"/user/{userId}"}, method = {RequestMethod.GET, RequestMethod.POST})
+    public String userIndex(@PathVariable("userId") int userId,
+    						@RequestParam(value="pop", defaultValue="0") int pop,
+    						Model model) {
+        model.addAttribute("vos", getNews(userId, 0, 10));
         model.addAttribute("pop", pop);
-        return "home";
+        return "user";
     }
 
     private List<ViewObject> getNews(int userId, int offset, int limit) {

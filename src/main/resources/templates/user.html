@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>令曰头条</title>
+	<meta name="viewport"
+		content="width=device-width, minimum-scale=1.0, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta name="keywords" content="令曰头条 - 你关心的绝不会成为头条">
+	<meta name="description" content="令曰头条 - 你关心的绝不会成为头条">
+	
+	<link rel="stylesheet" media="all" href="/styles/heartthrob.min.css">
+	<link rel="stylesheet" type="text/css" href="/styles/animate.css">
+	<link rel="stylesheet" type="text/css" href="/styles/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/styles/font-awesome.min.css">
+	<link rel="stylesheet" media="all" href="/styles/hover-min.css">
+	<link rel="stylesheet" media="all" href="/styles/style.css">
+	<script type="text/javascript" src="/scripts/jquery.js"></script>
+	<script type="text/javascript" src="/scripts/main/base/base.js"></script>
+	<script type="text/javascript" src="/scripts/main/base/util.js"></script>
+	<script type="text/javascript" src="/scripts/main/base/event.js"></script>
+	<script type="text/javascript" src="/scripts/main/base/upload.js"></script>
+	<script type="text/javascript" src="/scripts/main/component/component.js"></script>
+	<script type="text/javascript" src="/scripts/main/component/popup.js"></script>
+	<script type="text/javascript" src="/scripts/main/component/popupLogin.js"></script>
+	<script type="text/javascript" src="/scripts/main/component/upload.js"></script>
+	<script type="text/javascript" src="/scripts/main/component/popupUpload.js"></script>
+	<script type="text/javascript" src="/scripts/main/util/action.js"></script>
+	<script type="text/javascript" src="/scripts/main/site/home.js"></script>
+</head>
+<body class="welcome_index bounceInUp animated">
+
+	<div th:include="header::headerBar"></div>
+
+	<div id="main">
+		<div class="container" id="daily">
+			<div class="jscroll-inner">
+				<div class="daily">
+
+					<!-- DEBUG-ONLY -->
+					<!--                     <div th:each="vo : ${vos}">
+						<p th:text="${vo.objs['news'].createdDate}"></p>
+                    </div> -->
+
+					<div class="container hvr-grow-shadow" id="daily" th:each="vo : ${vos}">
+						<div class="jscroll-inner" th:object="${vo.objs['news']}">
+							<div class="daily"></div>
+
+							<h3 class="date">
+								<i class="fa icon-calendar"></i> <span
+									th:text="'News | ' + *{createdDate}"></span>
+							</h3>
+
+							<div class="posts">
+								<div class="post">
+									<div class="votebar">
+										<button th:if="*{likeCount} > 0" class="click-like up pressed" th:attr="data-id=*{id}" title="赞同">
+											<i class="vote-arrow"></i>
+											<span class="count" th:text="*{likeCount}"></span>
+										</button>
+										<button th:if="*{likeCount} <= 0" class="click-like up" th:attr="data-id=*{id}" title="赞同">
+											<i class="vote-arrow"></i>
+											<span class="count" th:text="*{likeCount}"></span>
+										</button>
+										<button th:if="*{likeCount} < 0" class="click-dislike down pressed" th:attr="data-id=*{id}" title="反对">
+											<i class="vote-arrow"></i>
+										</button>
+										<button th:if="*{likeCount} >= 0" class="click-dislike down" th:attr="data-id=*{id}" title="反对">
+											<i class="vote-arrow"></i>
+										</button>
+									</div>
+
+									<div class="content"
+										data-url="http://nowcoder.com/posts/5l3hjr">
+										<!-- ??? -->
+
+										<div>
+											<img class="content-img" th:attr="src=*{image}" alt="">
+										</div>
+
+										<div class="content-main">
+											<h3 class="title">
+												<a target="_blank" rel="external nofollow"
+													th:attr="href=*{link}" th:text="*{title}"></a>
+											</h3>
+
+											<div class="meta">
+												<!-- <span th:text="*{link}"></span> -->
+												<!-- 这个链接文字显示出来太长了 不会折叠 不响应式 -->
+												<span> <i class="fa icon-comment"></i> <span
+													th:text="*{commentCount}"></span>
+												</span>
+											</div>
+
+										</div>
+									</div>
+
+									<div class="user-info" th:object="${vo.objs['user']}">
+										<div class="user-avatar">
+											<!-- th:href="@{/webPage/details(orderId=${o.id})}" -->
+											<a th:href="|/user/*{id}|"> <img width="32"
+												class="img-circle" th:src="*{image}">
+											</a>
+										</div>
+									</div>
+
+									<div class="subject-name" th:object="${vo.objs['user']}">
+										来自 <a th:href="|/user/*{id}|" th:text="*{name}"></a>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div th:include="footer::footerBar"></div>
+	<script type="text/javascript" src="/scripts/main/site/home.js"></script>
+</body>
+</html>
