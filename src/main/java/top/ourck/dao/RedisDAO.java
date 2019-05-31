@@ -11,7 +11,10 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
 /**
- * TODO Redis操作作为DAO是否正确？
+ * Redis操作作为DAO是否正确？正确也不正确。<br>
+ * 从DAO的语义来说，似乎是正确的。<br>
+ * 但似乎在实际的工程中Redis更多的是作为缓存来使用的，<br>
+ * 也因此更多人认为用于访问Redis数据库的类应作为工具类。<br>
  * @author ourck
  */
 @Component

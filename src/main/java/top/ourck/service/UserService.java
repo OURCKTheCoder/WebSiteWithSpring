@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -16,6 +15,7 @@ import top.ourck.beans.LoginTicket;
 import top.ourck.beans.User;
 import top.ourck.dao.LoginTicketDAO;
 import top.ourck.dao.UserDAO;
+import top.ourck.util.StringUtil;
 
 @Service
 public class UserService {
@@ -33,7 +33,7 @@ public class UserService {
 	}
 
 	/**
-	 * TODO 特殊字符验证？
+	 * 用户注册接口。
 	 * @param userName 用户名
 	 * @param passwd 密码
 	 * @return 信息
@@ -42,15 +42,25 @@ public class UserService {
 	public Map<String, Object> register(String userName, String passwd) throws UnsupportedEncodingException {
 		Map<String, Object> info = new HashMap<>();
 		
-		// 1. 输入不为空校验
-		if(StringUtils.isBlank(userName)) {
+		// 1. 输入不为空 & 特殊字符校验
+		if(StringUtil.isBlank(userName)) {
 			info.put("success", "false");
 			info.put("msgname", "用户名不能为空");
 			return info;
 		}
-		if(StringUtils.isBlank(passwd)) {
+		if(StringUtil.isBlank(passwd)) {
 			info.put("success", "false");
 			info.put("msgpwd", "密码不能为空");
+			return info;
+		}
+		if(StringUtil.containsSpchar(userName)) {
+			info.put("success", "false");
+			info.put("msgname", "用户名包含特殊字符");
+			return info;
+		}
+		if(StringUtil.containsSpchar(passwd)) {
+			info.put("success", "false");
+			info.put("msgpwd", "密码包含特殊字符");
 			return info;
 		}
 		
@@ -81,12 +91,12 @@ public class UserService {
 	public Map<String, Object> getAuth(String userName, String passwd) throws UnsupportedEncodingException {
 		Map<String, Object> info = new HashMap<>();
 		
-		if(StringUtils.isBlank(userName)) {
+		if(StringUtil.isBlank(userName)) {
 			info.put("success", "false");
 			info.put("msgname", "用户名不能为空");
 			return info;
 		}
-		if(StringUtils.isBlank(passwd)) {
+		if(StringUtil.isBlank(passwd)) {
 			info.put("success", "false");
 			info.put("msgpwd", "密码不能为空");
 			return info;

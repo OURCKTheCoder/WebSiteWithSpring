@@ -44,7 +44,6 @@ import top.ourck.util.JSONUtil;
 @RequestMapping("/news")
 public class NewsController {
 
-	// TODO Wire it using conf?
 	private static Logger logger = LoggerFactory.getLogger("NewsControllerLogger");
 	
 	@Autowired

@@ -65,8 +65,17 @@ public class EventConsumer implements InitializingBean, ApplicationContextAware 
 		}
 	}
 
-	// TODO 一定要依赖Spring框架的生命周期吗？
-	// 能不能直接放在构造块中？
+	// 一定要依赖Spring框架的生命周期吗？对的
+	// 能不能直接放在构造块中？不行。
+	// 
+	// 因为初始化需要用到APPLICATION_CONTEXT，来取得作为@Component的各种EventHandler。
+	// 而这玩意（似乎）只能通过重写setApplicationContext()来取得。
+	// 换句话说，这玩意只能在Spring加载的特定生命周期过后获得。这也是第一个问题的答案。
+	// 
+	// 关于第二个问题，有了上面这段话就清楚了。
+	// 因为构造器被调用时，是Spring新建Bean加载上下文的时候。
+	// 而这个时候，APPLICATION_CONTEXT并没有被完全加载好，
+	// 并且本来也没法直接通过构造器取得APPLICATION_CONTEXT。
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		// 1. Wiring routing table.

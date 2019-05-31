@@ -2,8 +2,8 @@ package top.ourck.util;
 
 public class ImageUtil {
 	
-	public static String IMAGE_SAVE_PATH = "/home/ourck/resources/image/"; // TODO Is this correct?
-	public static String IMAGE_DOMAIN = "http://127.0.0.1:8080/news/"; // TODO Is this correct?
+	public static String IMAGE_SAVE_PATH = "/home/ourck/resources/image/";
+	public static String IMAGE_DOMAIN = "http://127.0.0.1:8080/news/";
 	public static String[] VALID_EXTNAMES = {"jpg", "png", "bmp", "jpeg"};
 	
 	public static boolean isValid(String extName) {

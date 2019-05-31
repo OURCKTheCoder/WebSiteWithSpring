@@ -28,7 +28,6 @@ import top.ourck.util.JSONUtil;
 @RequestMapping("/login")
 public class LoginController {
 
-	// TODO Wire it using conf?
 	private static Logger logger = LoggerFactory.getLogger("LoginControllerLogger");
 	
 	@Autowired
